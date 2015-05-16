@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<controls>
+		
+	<lb-time xalign="right" yalign="top" x="0" y="0" width="120" height="50" font-name="Dialog" font-color="16777215" font-size="28" font-type="1" ident-left="0" ident-right="0" ident-top="55" ident-bottom="0"/>
+	<lb-date xalign="right" yalign="top" x="0" y="0" width="200" height="50" font-name="Dialog" font-color="31939" font-size="18" font-type="0" ident-left="0" ident-right="0" ident-top="0" ident-bottom="0"/>
+	<lb-user xalign="left" yalign="top" x="0" y="0" width="500" height="90" font-name="Dialog" font-color="0" font-size="32" font-type="3" ident-left="180" ident-right="0" ident-top="-10" ident-bottom="0"/>
+	
+	<lb-cell xalign="no" yalign="top" x="800" y="0" width="170" height="30" font-name="Dialog" font-color="16711680" font-size="38" font-type="1" ident-left="0" ident-right="0" ident-top="220" ident-bottom="0"/>
+	<lb-cell-title xalign="no" yalign="top" x="550" y="0" width="300" height="30" font-name="Dialog" font-color="0" font-size="22" font-type="1" ident-left="0" ident-right="0" ident-top="220" ident-bottom="0"/>
+	<bt-back img1="styles/vt1/bt_backw1.png" img2="styles/vt1/bt_backw1.png" img3="styles/vt1/bt_backw2.png" xalign="left" yalign="center" x="0" y="0" width="0" height="0" ident-left="30" ident-right="0" ident-top="100" ident-bottom="0"/>
+	<bt-ok img1="styles/vt1/bt_ok1.png" img2="styles/vt1/bt_ok1.png" img3="styles/vt1/bt_ok2.png" xalign="left" yalign="center" x="0" y="0" width="0" height="0" ident-left="30" ident-right="0" ident-top="-100" ident-bottom="0"/>
+	<rbtgroup-figures img1="styles/vt1/fig_bgw1.png" img2="styles/vt1/fig_bgw1.png" img3="styles/vt1/fig_bgw2.png" xbegin="550" ybegin="300" between="5" font-name="Dialog" font-color="16777215" font-size="30" font-type="1"/>
+	<bt-clear img1="styles/vt1/bt_clearw1.png" img2="styles/vt1/bt_clearw1.png" img3="styles/vt1/bt_clearw2.png" xalign="right" yalign="top" x="0" y="0" width="0" height="0" ident-left="0" ident-right="50" ident-top="300" ident-bottom="0"/>
+	
+	
+</controls>

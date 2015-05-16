@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<controls>
+	<bt-sale img1="styles/vt1/bt_sale1.png" img2="styles/vt1/bt_sale1.png" img3="styles/vt1/bt_sale2.png" xalign="center" yalign="no" x="0" y="120" width="0" height="0" ident-left="-230" ident-right="0" ident-top="0" ident-bottom="0"/>
+	<bt-return img1="styles/vt1/bt_return1.png" img2="styles/vt1/bt_return1.png" img3="styles/vt1/bt_return2.png" xalign="center" yalign="no" x="0" y="270" width="0" height="0" ident-left="-230" ident-right="0" ident-top="0" ident-bottom="0"/>
+	<bt-kassa img1="styles/vt1/bt_kassa1.png" img2="styles/vt1/bt_kassa1.png" img3="styles/vt1/bt_kassa2.png" xalign="center" yalign="no" x="0" y="420" width="0" height="0" ident-left="-230" ident-right="0" ident-top="0" ident-bottom="0"/>
+	<bt-map img1="styles/vt1/bt_map1.png" img2="styles/vt1/bt_map1.png" img3="styles/vt1/bt_map2.png" xalign="center" yalign="no" x="0" y="570" width="0" height="0" ident-left="-230" ident-right="0" ident-top="0" ident-bottom="0"/>
+	<bt-wc img1="styles/vt1/bt_wc1.png" img2="styles/vt1/bt_wc1.png" img3="styles/vt1/bt_wc2.png" xalign="center" yalign="no" x="0" y="120" width="0" height="0" ident-left="230" ident-right="0" ident-top="0" ident-bottom="0"/>
+	<bt-douche img1="styles/vt1/bt_bsk1.png" img2="styles/vt1/bt_bsk1.png" img3="styles/vt1/bt_bsk2.png" xalign="center" yalign="no" x="0" y="270" width="0" height="0" ident-left="230" ident-right="0" ident-top="0" ident-bottom="0"/>
+	<bt-mobile img1="styles/vt1/bt_mobile1.png" img2="styles/vt1/bt_mobile1.png" img3="styles/vt1/bt_mobile2.png" xalign="center" yalign="no" x="0" y="420" width="0" height="0" ident-left="230" ident-right="0" ident-top="0" ident-bottom="0"/>
+	
+	<bt-mainmenu img1="styles/vt1/bt_backw1.png" img2="styles/vt1/bt_backw1.png" img3="styles/vt1/bt_backw2.png" xalign="center" yalign="no" x="0" y="570" width="0" height="0" ident-left="230" ident-right="0" ident-top="0" ident-bottom="50"/>
+	<bt-surch img1="styles/vt1/bt_surch1.png" img2="styles/vt1/bt_surch1.png" img3="styles/vt1/bt_surch2.png" xalign="center" yalign="no" x="0" y="0" width="0" height="0" ident-left="0" ident-right="0" ident-top="0" ident-bottom="0"/>
+	<lb-time xalign="right" yalign="top" x="0" y="0" width="120" height="50" font-name="Dialog" font-color="16777215" font-size="28" font-type="1" ident-left="0" ident-right="0" ident-top="55" ident-bottom="0"/>
+	<lb-date xalign="right" yalign="top" x="0" y="0" width="200" height="50" font-name="Dialog" font-color="31939" font-size="18" font-type="0" ident-left="0" ident-right="0" ident-top="0" ident-bottom="0"/>
+	<lb-user xalign="left" yalign="top" x="0" y="0" width="500" height="90" font-name="Dialog" font-color="0" font-size="32" font-type="3" ident-left="180" ident-right="0" ident-top="-10" ident-bottom="0"/>
+</controls>

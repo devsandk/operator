@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<images>
+	<img src="styles/vt1/bg_white.png" xalign="no" yalign="no" x="0" y="0" width="-1" height="-1" ident-left="0" ident-right="0" ident-top="0" ident-bottom="0"/>
+	<img src="styles/vt1/top.png" xalign="no" yalign="top" x="0" y="0" width="-1" height="0" ident-left="0" ident-right="0" ident-top="0" ident-bottom="0"/>
+	<img src="styles/vt1/bottom.png" xalign="no" yalign="bottom" x="0" y="0" width="-1" height="0" ident-left="0" ident-right="0" ident-top="0" ident-bottom="0"/>
+	<img src="styles/vt1/dollar.png" xalign="left" yalign="top" x="0" y="0" width="0" height="0" ident-left="100" ident-right="0" ident-top="100" ident-bottom="0"/>
+	<img src="styles/vt1/card.png" xalign="left" yalign="top" x="0" y="0" width="0" height="0" ident-left="150" ident-right="0" ident-top="150" ident-bottom="0"/>
+	<img id="saleaction_title" src="styles/vt1/text_saleaction1.png" xalign="center" yalign="center" x="0" y="0" width="0" height="0" ident-left="0" ident-right="0" ident-top="0" ident-bottom="0"/>
+	<_animation src="styles/red/santa.gif" xalign="center" yalign="top" x="0" y="0" width="350" height="120" ident-left="0" ident-right="0" ident-top="30" ident-bottom="0"/>
+</images>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<cardreader address="/dev/ttyUSB0"/>
+	<screen width="1024" height="768"/>
+	<server ip="192.168.0.81" port="7102" ping="100" id="test_kiosk"/>
+	<_server ip="vtsoft.dyndns.org" port="7102" ping="60" id="test_kiosk"/>
+	<docs rules="test/test.html"/>
+	<hall number="1"/>
+	<reader type="2"/>
+	<fr address="/dev/ttyS0" type="1" password="00"/>
+</configuration>

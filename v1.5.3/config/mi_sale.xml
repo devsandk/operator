@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<images>
+	<img src="styles/vt1/sale_bg.png" xalign="no" yalign="no" x="0" y="0" width="-1" height="-1" ident-left="0" ident-right="0" ident-top="0" ident-bottom="0"/>
+	<img src="styles/vt1/top.png" xalign="no" yalign="top" x="0" y="0" width="-1" height="0" ident-left="0" ident-right="0" ident-top="0" ident-bottom="0"/>
+	<img src="styles/vt1/bottom.png" xalign="no" yalign="bottom" x="0" y="0" width="-1" height="0" ident-left="0" ident-right="0" ident-top="0" ident-bottom="0"/>
+	<img id="sale_info" src="styles/vt1/sale_info.png" xalign="no" yalign="top" x="550" y="0" width="0" height="0" ident-left="0" ident-right="0" ident-top="120" ident-bottom="0"/>
+	<img src="styles/vt1/leg_clock.png" xalign="left" yalign="no" x="0" y="320" width="0" height="0" ident-left="50" ident-right="0" ident-top="0" ident-bottom="0"/>
+	<img src="styles/vt1/leg_nl.png" xalign="left" yalign="no" x="0" y="390" width="0" height="0" ident-left="50" ident-right="0" ident-top="0" ident-bottom="0"/>
+	<img src="styles/vt1/leg_clear.png" xalign="left" yalign="no" x="0" y="460" width="0" height="0" ident-left="50" ident-right="0" ident-top="0" ident-bottom="0"/>
+	<img src="styles/vt1/leg_num.png" xalign="left" yalign="no" x="0" y="530" width="0" height="0" ident-left="50" ident-right="0" ident-top="0" ident-bottom="0"/>
+	<_animation src="styles/red/santa.gif" xalign="center" yalign="top" x="0" y="0" width="350" height="120" ident-left="0" ident-right="0" ident-top="30" ident-bottom="0"/>
+</images>

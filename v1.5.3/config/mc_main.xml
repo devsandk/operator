@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<controls>
+	<bt-operator img1="styles/vt1/bt_oper1.png" img2="styles/vt1/bt_oper1.png" img3="styles/vt1/bt_oper2.png" xalign="center" yalign="no" x="0" y="120" width="0" height="0" ident-left="0" ident-right="0" ident-top="0" ident-bottom="0"/>
+	<bt-admin img1="styles/vt1/bt_admin1.png" img2="styles/vt1/bt_admin1.png" img3="styles/vt1/bt_admin2.png" xalign="center" yalign="no" x="0" y="270" width="0" height="0" ident-left="0" ident-right="0" ident-top="0" ident-bottom="0"/>
+	<bt-techn img1="styles/vt1/bt_tech1.png" img2="styles/vt1/bt_tech1.png" img3="styles/vt1/bt_tech1.png" xalign="center" yalign="no" x="0" y="420" width="0" height="0" ident-left="0" ident-right="0" ident-top="0" ident-bottom="0"/>
+	<bt-map img1="styles/vt1/bt_map1.png" img2="styles/vt1/bt_map1.png" img3="styles/vt1/bt_map2.png" xalign="center" yalign="no" x="0" y="570" width="0" height="0" ident-left="0" ident-right="0" ident-top="0" ident-bottom="0"/>
+	<lb-time xalign="right" yalign="top" x="0" y="0" width="120" height="50" font-name="Dialog" font-color="16777215" font-size="28" font-type="1" ident-left="0" ident-right="0" ident-top="55" ident-bottom="0"/>
+	<lb-date xalign="right" yalign="top" x="0" y="0" width="200" height="50" font-name="Dialog" font-color="31939" font-size="18" font-type="0" ident-left="0" ident-right="0" ident-top="0" ident-bottom="0"/>
+</controls>

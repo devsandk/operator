@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<controls>
+	<rbtgroup-figures img1="styles/vt1/fig_bg1.png" img2="styles/vt1/fig_bg1.png" img3="styles/vt1/fig_bg2.png" xbegin="550" ybegin="350" between="5" font-name="Dialog" font-color="16777215" font-size="30" font-type="1"/>
+	<bt-enter img1="styles/vt1/bt_cellnum1.png" img2="styles/vt1/bt_cellnum1.png" img3="styles/vt1/bt_cellnum2.png" xalign="right" yalign="top" x="0" y="0" width="0" height="0" ident-left="0" ident-right="50" ident-top="350" ident-bottom="0"/>
+	<rbt-clock img1="styles/vt1/bt_clock1.png" img2="styles/vt1/bt_clock1.png" img3="styles/vt1/bt_clock2.png" img4="styles/vt1/bt_clock2.png" xalign="right" yalign="top" x="0" y="0" width="0" height="0" ident-left="0" ident-right="50" ident-top="449" ident-bottom="0"/>
+	<rbt-nl img1="styles/vt1/bt_nl1.png" img2="styles/vt1/bt_nl1.png" img3="styles/vt1/bt_nl2.png" img4="styles/vt1/bt_nl2.png" xalign="right" yalign="top" x="0" y="0" width="0" height="0" ident-left="0" ident-right="50" ident-top="548" ident-bottom="0"/>
+	<bt-clear img1="styles/vt1/bt_clear1.png" img2="styles/vt1/bt_clear1.png" img3="styles/vt1/bt_clear2.png" xalign="right" yalign="top" x="0" y="0" width="0" height="0" ident-left="0" ident-right="50" ident-top="647" ident-bottom="0"/>
+	<bt-ok img1="styles/vt1/bt_slips1.png" img2="styles/vt1/bt_slips1.png" img3="styles/vt1/bt_slips2.png" xalign="left" yalign="bottom" x="0" y="0" width="0" height="0" ident-left="300" ident-right="0" ident-top="0" ident-bottom="30"/>
+	<bt-opermenu img1="styles/vt1/bt_moo1.png" img2="styles/vt1/bt_moo1.png" img3="styles/vt1/bt_moo2.png" xalign="left" yalign="top" x="0" y="0" width="0" height="0" ident-left="30" ident-right="0" ident-top="180" ident-bottom="0"/>
+	<bt-addpaycell img1="styles/vt1/bt_num1.png" img2="styles/vt1/bt_num1.png" img3="styles/vt1/bt_num2.png" xalign="left" yalign="bottom" x="0" y="0" width="0" height="0" ident-left="30" ident-right="0" ident-top="0" ident-bottom="30"/>
+	
+	<lb-time xalign="right" yalign="top" x="0" y="0" width="120" height="50" font-name="Dialog" font-color="16777215" font-size="28" font-type="1" ident-left="0" ident-right="0" ident-top="55" ident-bottom="0"/>
+	<lb-date xalign="right" yalign="top" x="0" y="0" width="200" height="50" font-name="Dialog" font-color="31939" font-size="18" font-type="0" ident-left="0" ident-right="0" ident-top="0" ident-bottom="0"/>
+	
+	<lb-tariff xalign="no" yalign="top" x="790" y="0" width="150" height="30" font-name="Dialog" font-color="39139" font-size="28" font-type="1" ident-left="0" ident-right="0" ident-top="120" ident-bottom="0"/>
+	<lb-tariff-title xalign="no" yalign="top" x="570" y="0" width="200" height="30" font-name="Dialog" font-color="39139" font-size="18" font-type="1" ident-left="0" ident-right="0" ident-top="120" ident-bottom="0"/>
+	
+	<lb-storagetime xalign="no" yalign="top" x="790" y="0" width="150" height="30" font-name="Dialog" font-color="16711680" font-size="28" font-type="1" ident-left="0" ident-right="0" ident-top="150" ident-bottom="0"/>
+	<lb-storagetime-title xalign="no" yalign="top" x="570" y="0" width="200" height="30" font-name="Dialog" font-color="0" font-size="18" font-type="1" ident-left="0" ident-right="0" ident-top="150" ident-bottom="0"/>
+	
+	<lb-cellnum xalign="no" yalign="top" x="790" y="0" width="150" height="30" font-name="Dialog" font-color="16711680" font-size="28" font-type="1" ident-left="0" ident-right="0" ident-top="182" ident-bottom="0"/>
+	<lb-cellnum-title xalign="no" yalign="top" x="570" y="0" width="200" height="30" font-name="Dialog" font-color="0" font-size="18" font-type="1" ident-left="0" ident-right="0" ident-top="182" ident-bottom="0"/>
+	
+	<lb-intotal xalign="no" yalign="top" x="790" y="0" width="150" height="30" font-name="Dialog" font-color="16711680" font-size="28" font-type="1" ident-left="0" ident-right="0" ident-top="215" ident-bottom="0"/>
+	<lb-intotal-title xalign="no" yalign="top" x="570" y="0" width="200" height="30" font-name="Dialog" font-color="0" font-size="18" font-type="1" ident-left="0" ident-right="0" ident-top="215" ident-bottom="0"/>
+	
+	<lb-cash xalign="no" yalign="top" x="790" y="0" width="150" height="30" font-name="Dialog" font-color="16711680" font-size="28" font-type="1" ident-left="0" ident-right="0" ident-top="250" ident-bottom="0"/>
+	<lb-cash-title xalign="no" yalign="top" x="570" y="0" width="200" height="30" font-name="Dialog" font-color="0" font-size="18" font-type="1" ident-left="0" ident-right="0" ident-top="250" ident-bottom="0"/>
+	
+	<lb-oddmoney xalign="no" yalign="top" x="790" y="0" width="150" height="30" font-name="Dialog" font-color="16711680" font-size="28" font-type="1" ident-left="0" ident-right="0" ident-top="290" ident-bottom="0"/>
+	<lb-oddmoney-title xalign="no" yalign="top" x="570" y="0" width="200" height="30" font-name="Dialog" font-color="0" font-size="18" font-type="1" ident-left="0" ident-right="0" ident-top="290" ident-bottom="0"/>
+	
+	<lb-freecells xalign="left" yalign="top" x="0" y="0" width="400" height="30" font-name="Dialog" font-color="0" font-size="20" font-type="0" ident-left="50" ident-right="0" ident-top="120" ident-bottom="0"/>
+	<lb-notactive xalign="left" yalign="top" x="0" y="0" width="400" height="30" font-name="Dialog" font-color="0" font-size="20" font-type="0" ident-left="50" ident-right="0" ident-top="150" ident-bottom="0"/>
+</controls>

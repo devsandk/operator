@@ -1,0 +1,150 @@
+body {
+    font-family:Arial;
+    font-size:23px;
+
+}
+#settings , #hcontent {
+ float:left;
+// min-height:105px;
+// min-width:105px;
+ position:relative;
+
+}
+#hcontent {
+    width:600px;
+    margin-top:-10px;
+    font-family:Arial;
+
+}
+#settings {
+    background-image:url("../settings.png");
+    background-repeat:no-repeat;
+    min-height:64px;
+    min-width:64px;
+    cursor:pointer;
+    margin-left:10px;
+    margin-top:10px;
+    z-index:1100;
+}
+#header {
+   // text-align:center;
+   // margin: auto;
+    vertical-align: middle;
+    font-family:Arial;
+    font-size:23px;
+    min-height:105px;
+    max-height:105px;
+    background-color:#a0a0a0;
+   // margin-bottom:20px;
+    background-image:url(../top.png);
+}
+#header h2 {
+    //padding-top:-15px;
+    top:-10px;
+    position:relative;
+    margin-left:150px;
+
+}
+#footer {
+    background-color:#cfcfcf;
+    min-height:31px;
+    text-align:left;
+    font-size:10pt;
+    padding:12px 0 0 10px;
+ }
+#datetime {
+    width:200px;
+    padding-top:15px;
+    float:right;
+    font-weight:bold;
+    text-align:center;
+}
+#date {
+    width:200px;
+    float:right;
+    font-size:110%;
+    color:#007cc3;
+
+}
+#time {
+    width:200px;
+    float:right;
+    padding-top:20px;
+    font-size:120%;
+    color:#ffffff;
+}
+.button {
+    margin:auto;
+    width:100%;
+    height:150px;
+}
+.button img {
+    cursor:pointer;
+}
+#scontent {
+    position:fixed;
+    height:300px;
+    width:600px;
+    background:silver;
+    z-index:1000;
+    display:none;
+   // opacity:0.9;
+    border-radius:5px 10px 10px 10px;
+    border:1px solid black;
+    margin-left:10px;
+    margin-top:12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+.sheader {
+    height:58px;
+    width:100%;
+    background:#1F7EC8;
+    border-radius:5px 10px 0 0;
+}
+.kassa {
+    padding:0;
+    margin:0;
+    float:left;
+    width:100%;
+    padding-top:-20px;
+    height:643px;
+
+}
+.kassa-left {
+    text-align:left;
+    font-size:80%;
+    width:49%;
+    float:left;
+}
+.kassa-left .text p {
+    padding:0px;
+    margin:0px;
+    padding-bottom:5px;
+}
+.block {
+    padding-top:20xp;
+}
+.text {
+    padding-left:50px;
+}
+.info {
+    padding-left:55px;
+    padding-rop:10px;
+}
+.kl_bottom {
+    padding-left:30px;
+    padding-top:10px;
+}
+.kassa-right {
+    width:49%;
+    float:left;
+    margin-left:20px;
+}
+.sale_card {
+    min-height:200px;
+    min-width:430px;
+    max-width:430px;
+    background-color:white;
+    border-radius:30px;
+    border:1px solid #53a2d0;
+}

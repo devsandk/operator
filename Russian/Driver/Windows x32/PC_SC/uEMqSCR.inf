@@ -1,0 +1,61 @@
+;Copyright (c) SfY.  All rights reserved.
+;   uEMqSCR.inf
+; 
+[Version]
+Signature="$CHICAGO$"
+Class=SmartCardReader
+ClassGUID = {50dd5230-ba8a-11d1-bf5d-0000f805f530} 
+Provider=%uEM%
+DriverVer= 07/02/2006,1.0.0.2
+CatalogFile = uEMqSCR.cat
+
+[SourceDisksNames]
+1=%Disk1%,,,
+
+[SourceDisksFiles]
+uEMqSCR.sys = 1,,
+
+[Manufacturer]
+%MfgName%=uEMMfg
+
+[uEMMfg]
+%DeviceDesc%=uEMqSCR.Dev, USB\VID_c251&PID_130a
+
+;[PreCopySection]
+;HKR,,NoSetupUI,,1
+
+[DestinationDirs]
+uEMqSCR.Files.Ext = 10,System32\Drivers
+
+[uEMqSCR.Dev]
+CopyFiles=uEMqSCR.Files.Ext
+AddReg=uEMqSCR.AddReg
+
+[uEMqSCR.Dev.Services]
+Addservice = uEMqSCR, 0x00000002, uEMqSCR.AddService
+
+[uEMqSCR.AddService]
+DisplayName    = %uEMqSCR.SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %10%\System32\Drivers\uEMqSCR.sys
+
+[uEMqSCR.AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,uEMqSCR.sys
+HKLM,"System\Currentcontrolset\Services\uEMqSCR\Parameters","MaximumTransferSize",0x10001,64
+HKLM,"System\Currentcontrolset\Services\uEMqSCR\Parameters","DebugLevel",0x10001,2
+HKLM,"System\Currentcontrolset\Services\uEMqSCR\Parameters","Enable",0x10001,1
+
+[uEMqSCR.Files.Ext]
+uEMqSCR.sys
+
+;---------------------------------------------------------------;
+
+[Strings]
+uEM="JSC MicroEM"
+MfgName="MicroEM"
+DeviceDesc="uEM USB SmartCard Reader"
+uEMqSCR.SvcDesc="uEM USB SCR driver"
+Disk1="uEM SCR Installation Disk #1"

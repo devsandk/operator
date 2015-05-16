@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<images>
+	<img src="styles/vt1/bg_white.png" xalign="no" yalign="no" x="0" y="0" width="-1" height="-1" ident-left="0" ident-right="0" ident-top="0" ident-bottom="0"/>
+	<img src="styles/vt1/top.png" xalign="no" yalign="top" x="0" y="0" width="-1" height="0" ident-left="0" ident-right="0" ident-top="0" ident-bottom="0"/>
+	<img src="styles/vt1/bottom.png" xalign="no" yalign="bottom" x="0" y="0" width="-1" height="0" ident-left="0" ident-right="0" ident-top="0" ident-bottom="0"/>
+	<_animation src="styles/red/santa.gif" xalign="center" yalign="top" x="0" y="0" width="350" height="120" ident-left="0" ident-right="0" ident-top="30" ident-bottom="0"/>
+</images>

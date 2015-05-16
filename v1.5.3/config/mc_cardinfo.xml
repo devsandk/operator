@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<controls>
+	<bt-cancel img1="styles/vt1/bt_cancel1.png" img2="styles/vt1/bt_cancel1.png" img3="styles/vt1/bt_cancel2.png" xalign="center" yalign="bottom" x="0" y="0" width="0" height="0" ident-left="230" ident-right="0" ident-top="0" ident-bottom="50"/>
+	<bt-ok img1="styles/vt1/bt_surch1.png" img2="styles/vt1/bt_surch1.png" img3="styles/vt1/bt_surch2.png" xalign="center" yalign="bottom" x="0" y="0" width="0" height="0" ident-left="-230" ident-right="0" ident-top="0" ident-bottom="50"/>
+	<lb-time xalign="right" yalign="top" x="0" y="0" width="120" height="50" font-name="Dialog" font-color="16777215" font-size="28" font-type="1" ident-left="0" ident-right="0" ident-top="55" ident-bottom="0"/>
+	<lb-date xalign="right" yalign="top" x="0" y="0" width="200" height="50" font-name="Dialog" font-color="31939" font-size="18" font-type="0" ident-left="0" ident-right="0" ident-top="0" ident-bottom="0"/>
+	<labels head-color="0" lfh-color="39139" lf-color="16711680"/>
+</controls>
