@@ -16,6 +16,7 @@ import serial
 import datetime
 import locale
 import array
+import reader
 
 
 class Reader():
@@ -70,6 +71,9 @@ class Foo(QObject):
         sock.close()
 
         return data
+    @pyqtSlot(result=str)
+    def getcard(self):
+       return reader.getcarnum()
 
     @pyqtSlot()
     def quit(self):
@@ -126,12 +130,16 @@ class Window(QWidget):
                         return None;
                     }
                     $('#content').css({"background-color":"white"})
-                    $('.block').css({"display":"none"});
                     $('#footer').css({"display":"block"});
                     $(this).attr('src', $(this).attr('src').substring(0,$(this).attr('src').length-5)+'1.png')
                     var cmd = $(this).attr('cmd')
                     if (cmd=='tech') {
                         foo.quit();
+                    }
+                    else if (cmd== "getcard"){
+                        var data = foo.getcard().toUpperCase();
+                        $("#scontent").children('h2').remove();
+                        $('#scontent').append("<h2>"+data+"</h2>")
                     }
                     else if (cmd == "sale"){
                         $('.block').css({"display":"none"});
@@ -140,6 +148,7 @@ class Window(QWidget):
                         $('#content').css({"background-color":"#C9D6E0"})
                     }
                     else if (cmd == "back_menu_oper"){
+                        $('.block').css({"display":"none"});
                         $('.oper').css({"display":"block"})
                     }
                     else if (cmd=='back'){
@@ -192,7 +201,7 @@ class Window(QWidget):
         <div id='scontent'>
             <div class='sheader'>
             </div>
-            <img src="exit1.png" cmd="tech">
+            <img src="exit1.png" cmd="getcard">
         </div>
         <div id='header'>
             <div id='settings'>
