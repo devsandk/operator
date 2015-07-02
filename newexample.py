@@ -17,6 +17,8 @@ import datetime
 import locale
 import array
 import reader
+import xml.etree.ElementTree as ET
+from XMLProtocol import XMLProtocol
 
 
 class Reader():
@@ -46,30 +48,32 @@ class Foo(QObject):
     #@pyqtSlot(int, result=int)
     @pyqtSlot(result=str)
     def compute(self):
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.settimeout(1)
-        sock.setblocking(1)
-        data = b''
-        try: sock.connect(("localhost", 7102))
-        except socket.error as error:
-            print u'error',error
-            return '<?xml version="1.0" encoding="urf-8"?>\
-                    <msg id="vt.avkar.server">\
-                        <header>\
-                            <type>%s</type>\
-                        </header>\
-                    </msg>'%('server_not_found')
+        proto = XMLProtocol.XMLProtocol('10.8.0.14', 7102)
+        #sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        #sock.settimeout(1)
+        #sock.setblocking(1)
+        #data = b''
+        #try: sock.connect(("localhost", 7102))
+        #except socket.error as error:
+        #    print u'error',error
+        #    return '<?xml version="1.0" encoding="urf-8"?>\
+        #            <msg id="vt.avkar.server">\
+        #                <header>\
+        #                    <type>%s</type>\
+        #                </header>\
+        #            </msg>'%('server_not_found')
 
-        cmd =b'<msg  id="vt.avkar.kiosk"><header><type>query</type><device>test_kiosk</device><cmd>ping</cmd></header></msg>\n\n'
-        sock.send(cmd)
-        tmp = sock.recv(1024**2)
-        print tmp
+        #cmd =b'<msg  id="vt.avkar.kiosk"><header><type>query</type><device>test_kiosk</device><cmd>ping</cmd></header></msg>\n\n'
+        #sock.send(cmd)
+        #tmp = sock.recv(1024**2)
+        #print tmp
         #while tmp:
         #    data += tmp
         #    tmp = sock.recv(1024)
-        data = tmp
-        sock.close()
-
+        #data = tmp
+        #sock.close()
+        data = u'<msg><header><type>answer</type><free_cells>%s</free_cells><free_card>%s</free_card></header></msg>' % proto.sendCMD('ping_xml')
+        print data
         return data
     @pyqtSlot(result=str)
     def getcard(self):
@@ -111,7 +115,20 @@ class Window(QWidget):
       <script src="jquery-2.1.3.min.js"></script>
             <script>
             var content = '';
-
+            var card='';
+            var read=1;
+            function jgetcard(){
+                    if (window.read==1){
+                        var data = foo.getcard().toUpperCase();
+                        data=data.replace(/^0+/, '')
+                        $("#scontent").children('h2').remove();
+                        $('#scontent').append("<h2>"+data+"</h2>")
+                        window.card=data
+                        if(data!="NONE_DATA"){
+                            window.read=0;
+                        }
+                    }
+            }
             function setdatetime(){
                 var data = foo.setdatetime()
                 var month_names=['января', "февраля", "марта", "апреля", "майя", "июня", "июля", "августа", "сентября",
@@ -121,6 +138,26 @@ class Window(QWidget):
                 $('#time').text($(data).find('time').text());
             }
             $(document).ready(function(){
+                $('.numbutton').mousedown(function(){
+                    $(this).css({"background-image":$(this).css('background-image').substring(0,$(this).css('background-image').length-6)+'2.png)'})
+                });
+                $('.numbutton').mouseup(function(){
+                    $(this).css({"background-image":$(this).css('background-image').substring(0,$(this).css('background-image').length-6)+'1.png)'})
+                    /* Вызывать функцию выбора ячеек */
+                    if($(this).attr('cmd')=='get_cell'){
+                        $('.chour').text('0')
+                    }
+                    else if($(this).attr('cmd')=='clear'){
+                        $('.chour').text('0')
+                    }
+                    else if($('.chour').text()=='0'){
+                        $('.chour').text($(this).text())
+                    }
+                    else {
+                        $('.chour').text($('.chour').text()+$(this).text())
+                    }
+
+                });
                 $('img').mousedown(function(){
                     $(this).attr('src', $(this).attr('src').substring(0,$(this).attr('src').length-5)+'2.png')
                 });
@@ -146,9 +183,11 @@ class Window(QWidget):
                         $('.kassa').css({"display":"block"});
                         $('#footer').css({"display":"none"});
                         $('#content').css({"background-color":"#C9D6E0"})
+                        window.read=1;
                     }
                     else if (cmd == "back_menu_oper"){
                         $('.block').css({"display":"none"});
+                        $('.chour').text('0')
                         $('.oper').css({"display":"block"})
                     }
                     else if (cmd=='back'){
@@ -173,14 +212,17 @@ class Window(QWidget):
                             }
                             else {
                                 $("#hcontent").children("h2").remove()
-                                alert(data)
+                                free_cells=$(this).find('free_cells').text()
+                                $("#free_cells").text(free_cells)
                                 $("#hcontent").append("<h2>Ответ сервера:</h2>")
                             }
                         });
                     }
                 });
 
+
                 setInterval('setdatetime();', 1000);
+                setInterval('jgetcard();',3000);
                 $('#settings').click(function (){
                     if ($("#scontent").css('display')=='none') {
                         $('#scontent').slideDown('slow')
@@ -216,7 +258,7 @@ class Window(QWidget):
             </div>
         </div>
         <div id='content' style="width:100%; margin:auto;position:relative;text-align:center; ">
-            <div class='block menu' style='display:block;padding-top:20px;'>
+            <div class='block menu' style='display:none;padding-top:20px;'>
                 <div  class='button' style='margin:auto; width:100%; height:150px;'>
                     <img src="bt_oper1.png" cmd='oper'>
                 </div>
@@ -260,7 +302,7 @@ class Window(QWidget):
             <div class="block kassa" style="display:none; background-color:#C9D6E0;float:left;padding-top:20px;">
                 <div class="kassa-left">
                     <div class='text'>
-                        <p>Свободных ячеек - 101</p>
+                        <p>Свободных ячеек - <span id=free_cells></span></p>
                         <p>Продвно, но не активировано - 0 </p>
                     </div>
                     <div class='button' style='margin:auto; width:50%; height:150px;float:left;border-radius:10px;padding-left:30px;'>
@@ -281,9 +323,51 @@ class Window(QWidget):
                     </div>
                 </div>
                 <div class="kassa-right">
-                        <div class="sale_card">
+                    <div class="sale_card">
+                    <table>
+                        <tr>
+                            <td>ВРЕМЯ ХРАНЕНИЯ</td><td class='hour_guard two'><span class='chour'>0</span>ч</td>
+                        </tr>
+                        <tr>
+                            <td>НОМЕР ЯЧЕЙКИ</td><td class='cell_num two'></td>
+                        </tr>
+                        <tr>
+                            <td>ИТОГО</td><td class='summ two'></td>
+                        </tr>
+                    </table>
+                        </div>
+                        <div class='numpad'>
+                            <div class='numbutton'>1</div>
+                            <div class='numbutton'>2</div>
+                            <div class='numbutton'>3</div>
+                            <div class='numbutton'>4</div>
+                            <div class='numbutton'>5</div>
+                            <div class='numbutton'>6</div>
+                            <div class='numbutton'>7</div>
+                            <div class='numbutton'>8</div>
+                            <div class='numbutton'>9</div>
+                            <div class='numbutton'>0</div>
+                            <div class='numbutton'>.</div>
+                            <div class='numbutton'>00</div>
+                        </div>
+                        <div class='snumpad'>
+                            <div class='numbutton' cmd='get_cell'>Я</div>
+                            <div class="numbutton b_clear" cmd='clear'></div>
                         </div>
                 </div>
+            </div>
+            <div class="block card" style='display:block;min-height:600px;'>
+                <div style="width:100%;margin-left:100px;float:left">
+                    <img src='card.png' style="float:left;">
+                </div>
+                <div style="min-width:100%;text-align:center;float:left;">
+                    <img src="text_saleaction1.png">
+                </div>
+                    <div class='button' style='margin:auto; width:100%; height:150px;float:left;border-radius:10px;padding-left:30px;'>
+                        <img src='bt_cancel1.png' cmd='back_menu_oper' style="border-radius:51px;">
+                    </div>
+            </div>
+            <div class="block viewcells" style='display:block; min-height:600px;'>
             </div>
         </div>
         <div id='footer' style="background-color:#cfcfcf;

@@ -147,4 +147,55 @@ body {
     background-color:white;
     border-radius:30px;
     border:1px solid #53a2d0;
+    text-align:left;
+    padding:30px 30px 30xp 30px;
+}
+.sale_card table{
+    padding:10px 0px 0xp 10px;
+}
+.sale_card table  tr td{
+    font-size:120%;
+    margin:0px;
+    font-weight:bold;
+    padding:10px 0 0 10px;
+
+}
+.sale_card table tr td.two {
+    font-size:150%;
+    color:red;
+    margin:0px;
+    font-weight:bold;
+    padding-top:-5px;
+
+}
+.numpad {
+    max-width:309px;
+    margin-top:25px;
+    float:left;
+}
+.snumpad {
+    float:left;
+    width:114px;
+    position:relative;
+    margin-top:25px;
+    margin-left:25px;
+}
+.numbutton, .b_clear {
+    float:left;
+    background-image:url('../fig_bg1.png');
+    max-height:94px;
+    height:74px;
+    min-width:94px;
+    max-width:94px;
+    float:left;
+    text-align:center;
+    font-size:40px;
+    font-weight:bold;
+    padding-top:20px;
+    color:white;
+    position:relative;
+    margin:3px;
+}
+.b_clear{
+    background-image:url('../bt_clear1.png');
 }
