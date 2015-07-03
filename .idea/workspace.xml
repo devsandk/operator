@@ -5,14 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2f82d617-b387-4d30-bebe-ac50ef177991" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/XMLProtocol/XMLProtocol.py" afterPath="$PROJECT_DIR$/XMLProtocol/XMLProtocol.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/v1.5.3/config/configuration.xml" afterPath="$PROJECT_DIR$/v1.5.3/config/configuration.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/newexample.py" afterPath="$PROJECT_DIR$/newexample.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reader.py" afterPath="$PROJECT_DIR$/reader.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/img/style/style.css" afterPath="$PROJECT_DIR$/img/style/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/ts.iml" afterPath="$PROJECT_DIR$/.idea/ts.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/v1.5.3/logs/operator_1435786430847.html" afterPath="$PROJECT_DIR$/v1.5.3/logs/operator_1435786430847.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="ts.iws" />
@@ -79,8 +72,8 @@
       <file leaf-file-name="XMLProtocol.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/XMLProtocol/XMLProtocol.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.204289" vertical-offset="1489" max-vertical-offset="2718">
-              <caret line="142" column="66" selection-start-line="142" selection-start-column="66" selection-end-line="142" selection-end-column="66" />
+            <state vertical-scroll-proportion="0.24943566" vertical-offset="1687" max-vertical-offset="2916">
+              <caret line="106" column="27" selection-start-line="106" selection-start-column="27" selection-end-line="106" selection-end-column="27" />
               <folding>
                 <element signature="e#41#54#0" expanded="true" />
               </folding>
@@ -171,8 +164,8 @@
         <option value="$PROJECT_DIR$/reader.py" />
         <option value="$PROJECT_DIR$/img/style/style.css" />
         <option value="$PROJECT_DIR$/XMLProtocol/__init__.py" />
-        <option value="$PROJECT_DIR$/XMLProtocol/XMLProtocol.py" />
         <option value="$PROJECT_DIR$/newexample.py" />
+        <option value="$PROJECT_DIR$/XMLProtocol/XMLProtocol.py" />
       </list>
     </option>
   </component>
@@ -1161,8 +1154,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/XMLProtocol/XMLProtocol.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.204289" vertical-offset="1489" max-vertical-offset="2718">
-          <caret line="142" column="66" selection-start-line="142" selection-start-column="66" selection-end-line="142" selection-end-column="66" />
+        <state vertical-scroll-proportion="0.24943566" vertical-offset="1687" max-vertical-offset="2916">
+          <caret line="106" column="27" selection-start-line="106" selection-start-column="27" selection-end-line="106" selection-end-column="27" />
           <folding>
             <element signature="e#41#54#0" expanded="true" />
           </folding>
