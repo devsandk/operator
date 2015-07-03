@@ -25,59 +25,28 @@ class Reader():
     def __init__(self):
         self.serial = serial.Serial('/dev/ttyUSB0', 9600)
 
-
-
-
-from twisted.internet import reactor
-from twisted.internet.protocol import Protocol, ClientCreator
-
 pyDir = os.path.abspath(os.path.dirname(__file__))
 baseUrl = QUrl.fromLocalFile(os.path.join(pyDir, "img/"))
-
-class XMLClient(Protocol):
-   def sendMessage(self, msg):
-       self.transport.write("%s\n" % msg)
-   def dataReceived(self, data):
-       print data
-
-def gotProtocol(p):
-    p.sendMessage(1, p.sendMessage, )	
 
 
 class Foo(QObject):
     #@pyqtSlot(int, result=int)
     @pyqtSlot(result=str)
-    def compute(self):
+    def ping(self):
         proto = XMLProtocol.XMLProtocol('10.8.0.14', 7102)
-        #sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        #sock.settimeout(1)
-        #sock.setblocking(1)
-        #data = b''
-        #try: sock.connect(("localhost", 7102))
-        #except socket.error as error:
-        #    print u'error',error
-        #    return '<?xml version="1.0" encoding="urf-8"?>\
-        #            <msg id="vt.avkar.server">\
-        #                <header>\
-        #                    <type>%s</type>\
-        #                </header>\
-        #            </msg>'%('server_not_found')
-
-        #cmd =b'<msg  id="vt.avkar.kiosk"><header><type>query</type><device>test_kiosk</device><cmd>ping</cmd></header></msg>\n\n'
-        #sock.send(cmd)
-        #tmp = sock.recv(1024**2)
-        #print tmp
-        #while tmp:
-        #    data += tmp
-        #    tmp = sock.recv(1024)
-        #data = tmp
-        #sock.close()
-        data = u'<msg><header><type>answer</type><free_cells>%s</free_cells><free_card>%s</free_card></header></msg>' % proto.sendCMD('ping_xml')
+        data = u'<msg><header><type>answer</type><free_cells>%s</free_cells>' \
+               u'<free_card>%s</free_card></header></msg>' % proto.sendCMD('ping_xml')
         print data
         return data
     @pyqtSlot(result=str)
     def getcard(self):
        return reader.getcarnum()
+
+    @pyqtSlot(str, str, str, result=str)
+    def get_cells(self, hall, secbegin, secend):
+        proto = XMLProtocol.XMLProtocol('10.8.0.14', 7102)
+        result = proto.sendCMD('get_cells_xml', hall, secbegin, secend)
+        return result
 
     @pyqtSlot()
     def quit(self):
@@ -102,7 +71,7 @@ class Window(QWidget):
         self.setFixedSize(1024, 768)
         self.setGeometry(0, 0, 0, 0)
         self.setWindowFlags(Qt.FramelessWindowHint)
-
+        self.proto = XMLProtocol.XMLProtocol('10.8.0.14', 7102)
         self.foo = Foo(self)
         view.page().mainFrame().addToJavaScriptWindowObject("foo", self.foo)
 
@@ -145,6 +114,8 @@ class Window(QWidget):
                     $(this).css({"background-image":$(this).css('background-image').substring(0,$(this).css('background-image').length-6)+'1.png)'})
                     /* Вызывать функцию выбора ячеек */
                     if($(this).attr('cmd')=='get_cell'){
+                        data = foo.get_cells('1','1','10');
+                        alert(data);
                         $('.chour').text('0')
                     }
                     else if($(this).attr('cmd')=='clear'){
@@ -196,7 +167,7 @@ class Window(QWidget):
                         $("#hcontent").children('h2').remove()
                     }
                     else if (cmd=='oper'){
-                        var data = foo.compute();
+                        var data = foo.ping();
                         $('.menu').css({"display":"none"})
                         $('.oper').css({"display":"block"})
 

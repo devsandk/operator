@@ -90,7 +90,7 @@ class XMLProtocol():
         data = self.header_xml(b'query', b'return_card')
         return b'%s%s<data><card>%s</card><btime>%s</btime><sum>%s</sum><kkmses>%s</kkmses>' \
                b'<kkmcheck>%s</kkmcheck></data>%s' % \
-               (self.msgXML, data, card, btime, sum, kkmses, k20)heck, self.end_msgXML)
+               (self.msgXML, data, card, btime, sum, kkmses, kkmcheck, self.end_msgXML)
 
     def get_rate_xml(self):
         print  b'%s%s%s' % (self.msgXML, self.header_xml(b'query', b'get_rate'), self.end_msgXML)
