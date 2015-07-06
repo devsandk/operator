@@ -180,7 +180,7 @@ body {
     margin-top:25px;
     margin-left:25px;
 }
-.numbutton, .b_clear {
+.numbutton, .b_clear, cell {
     float:left;
     background-image:url('../fig_bg1.png');
     max-height:94px;
@@ -198,4 +198,36 @@ body {
 }
 .b_clear{
     background-image:url('../bt_clear1.png');
+}
+.holl {
+    width:100%;
+
+}
+.row {
+    width:10%;
+    float:left;
+
+}
+.cell {
+    width:100px;
+    min-width:100px;
+    float:left;
+    font-size:40px;
+    padding-top:40px;
+}
+.size2_free {
+    background-image:url('../blue2.png');
+    height:94px;
+}
+.size2_guard {
+    background-image:url('../green2.png');
+    height:94px;
+}
+.size2_error_com {
+    background-image:url('../gray2.png');
+    height:94px;
+}
+.size2_need_pay {
+    background-image:url('../yel2.png');
+    height:94px;
 }
