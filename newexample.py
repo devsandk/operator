@@ -121,12 +121,29 @@ class Window(QWidget):
                         $('.viewcells').css({"display":"block"});
                         $('.chour').text('0')
                         free_cells=0;
+                        $('.holl').children('.row').remove();
+                        for(i=0; i<=10; i++){
+                            $('.holl').append('<div class="row" id="'+i+'" sec_index="'+i+'"></div>')
+                        }
                         $(data).find('item').each(function(){
                             if ($(this).attr('state')=='free'){
                                 free_cells+=1
                             }
+                            if ($(this).attr('cell_num')!='99999'){
+                                class_name='need_pay'
+                                size = $(this).attr('cell_size')
+                                if($(this).attr('need_pay')=='yes'){
+                                    class_name='need_pay'
+                                }
+                                else {
+                                    class_name=$(this).attr('state')
+                                }
+                                $('#'+$(this).attr('sec_index')).append("<div class='cell size"+size+"_"+class_name+"'>"+
+                                $(this).attr('cell_num')+"</div>")
+                            }
                         })
                         $('.free_cells').text(free_cells)
+
 
                     }
                     else if($(this).attr('cmd')=='clear'){
@@ -360,11 +377,11 @@ class Window(QWidget):
                     </div>
                 </div>
                 <div class='holl'>
-                    <div class='row'>
+                    <!--<div class='row' sec_index='1'>
                         <div class='cell size2_free'>1</div>
                         <div class='cell size2_free'>2</div>
                         <div class='cell size2_free'>3</div>
-                    </div>
+                    </div>-->
                 </div>
                 <div class='button' style='margin:auto; width:50%; height:150px;float:left;'>
                     <img src='bt_backw1.png' cmd='back_menu_kassa'>
