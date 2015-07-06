@@ -98,6 +98,19 @@ class Window(QWidget):
                         }
                     }
             }
+            var sale_cell = new Object()
+                sale_cell.card = '';
+                sale_cell.sec_num = '';
+                sale_cell.cell_index = '';
+                sale_cell.btime = '';
+                sale_cell.sum = '';
+                sale_cell.kkmses = '';
+                sale_cell.kkmcheck = '';
+                sale_cell.buy_card = function(){
+                    alert('buy_card: card, btime, sum, kkmses, kkmcheck, sec_num, cell_index')
+                }
+
+
             function setdatetime(){
                 var data = foo.setdatetime()
                 var month_names=['января', "февраля", "марта", "апреля", "майя", "июня", "июля", "августа", "сентября",
@@ -107,6 +120,9 @@ class Window(QWidget):
                 $('#time').text($(data).find('time').text());
             }
             $(document).ready(function(){
+                sale_cell.buy_card()
+                sale_cell.card='99999'
+                alert(sale_cell.card)
                 $('.numbutton').mousedown(function(){
                     $(this).css({"background-image":$(this).css('background-image').substring(0,$(this).css('background-image').length-6)+'2.png)'})
                 });
