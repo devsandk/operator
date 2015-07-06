@@ -114,9 +114,20 @@ class Window(QWidget):
                     $(this).css({"background-image":$(this).css('background-image').substring(0,$(this).css('background-image').length-6)+'1.png)'})
                     /* Вызывать функцию выбора ячеек */
                     if($(this).attr('cmd')=='get_cell'){
-                        data = foo.get_cells('1','1','10');
-                        alert(data);
+                        begin = $(this).attr('begin')
+                        end = $(this).attr('end')
+                        data = foo.get_cells('1', begin, end);
+                        $('.block').css({"display":"none"});
+                        $('.viewcells').css({"display":"block"});
                         $('.chour').text('0')
+                        free_cells=0;
+                        $(data).find('item').each(function(){
+                            if ($(this).attr('state')=='free'){
+                                free_cells+=1
+                            }
+                        })
+                        $('.free_cells').text(free_cells)
+
                     }
                     else if($(this).attr('cmd')=='clear'){
                         $('.chour').text('0')
@@ -160,6 +171,10 @@ class Window(QWidget):
                         $('.block').css({"display":"none"});
                         $('.chour').text('0')
                         $('.oper').css({"display":"block"})
+                    }
+                    else if (cmd == "back_menu_kassa"){
+                        $('.block').css({"display":"none"});
+                        $('.kassa').css({"display":"block"})
                     }
                     else if (cmd=='back'){
                         $('.block').css({"display":"none"});
@@ -229,7 +244,7 @@ class Window(QWidget):
             </div>
         </div>
         <div id='content' style="width:100%; margin:auto;position:relative;text-align:center; ">
-            <div class='block menu' style='display:none;padding-top:20px;'>
+            <div class='block menu' style='display:block;padding-top:20px;'>
                 <div  class='button' style='margin:auto; width:100%; height:150px;'>
                     <img src="bt_oper1.png" cmd='oper'>
                 </div>
@@ -322,12 +337,12 @@ class Window(QWidget):
                             <div class='numbutton'>00</div>
                         </div>
                         <div class='snumpad'>
-                            <div class='numbutton' cmd='get_cell'>Я</div>
+                            <div class='numbutton' cmd='get_cell' begin='1', end='10'>Я</div>
                             <div class="numbutton b_clear" cmd='clear'></div>
                         </div>
                 </div>
             </div>
-            <div class="block card" style='display:block;min-height:600px;'>
+            <div class="block card" style='display:none;min-height:600px;'>
                 <div style="width:100%;margin-left:100px;float:left">
                     <img src='card.png' style="float:left;">
                 </div>
@@ -338,7 +353,22 @@ class Window(QWidget):
                         <img src='bt_cancel1.png' cmd='back_menu_oper' style="border-radius:51px;">
                     </div>
             </div>
-            <div class="block viewcells" style='display:block; min-height:600px;'>
+            <div class="block viewcells" style='display:none; min-height:600px;'>
+                <div class="view_head" style='background-color:white; width:100%;float:left;'>
+                    <div class='text' style="float:left; width:50%; padding-left:20px; text-align:left;">
+                        <p>Свободных ячеек - <span class='free_cells'></span></p>
+                    </div>
+                </div>
+                <div class='holl'>
+                    <div class='row'>
+                        <div class='cell size2_free'>1</div>
+                        <div class='cell size2_free'>2</div>
+                        <div class='cell size2_free'>3</div>
+                    </div>
+                </div>
+                <div class='button' style='margin:auto; width:50%; height:150px;float:left;'>
+                    <img src='bt_backw1.png' cmd='back_menu_kassa'>
+                </div>
             </div>
         </div>
         <div id='footer' style="background-color:#cfcfcf;
