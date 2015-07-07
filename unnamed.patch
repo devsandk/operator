@@ -1,0 +1,34 @@
+Index: newexample.py
+===================================================================
+--- newexample.py	(revision e7580f38ea64a976f088ebcdd93c0b2fef7e414b)
++++ newexample.py	(revision ca82b8c8b232a89b68c24c6cf3866d4fff655e45)
+@@ -98,6 +98,19 @@
+                         }
+                     }
+             }
++            var sale_cell = new Object()
++                sale_cell.card = '';
++                sale_cell.sec_num = '';
++                sale_cell.cell_index = '';
++                sale_cell.btime = '';
++                sale_cell.sum = '';
++                sale_cell.kkmses = '';
++                sale_cell.kkmcheck = '';
++                sale_cell.buy_card = function(){
++                    alert('buy_card: card, btime, sum, kkmses, kkmcheck, sec_num, cell_index')
++                }
++
++
+             function setdatetime(){
+                 var data = foo.setdatetime()
+                 var month_names=['января', "февраля", "марта", "апреля", "майя", "июня", "июля", "августа", "сентября",
+@@ -107,6 +120,9 @@
+                 $('#time').text($(data).find('time').text());
+             }
+             $(document).ready(function(){
++                sale_cell.buy_card()
++                sale_cell.card='99999'
++                alert(sale_cell.card)
+                 $('.numbutton').mousedown(function(){
+                     $(this).css({"background-image":$(this).css('background-image').substring(0,$(this).css('background-image').length-6)+'2.png)'})
+                 });
