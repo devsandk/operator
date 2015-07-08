@@ -231,3 +231,27 @@ body {
     background-image:url('../yel2.png');
     height:94px;
 }
+.size2_opened {
+    background-image:url('../lime2.png');
+    height:94px;
+}
+.nav {
+    max-width:50%;
+    float:left;
+    text-align:center;
+    height:75px;
+    max-height:75px;
+    padding:0px;
+    margin:0px;
+
+}
+.bt_back, .bt_next {
+    background-image:url('../hall1.png');
+    height:75px;
+    width:150px;
+    float:left;
+    color:white;
+    font-weight:900;
+    padding-top:20px;
+    background-repeat:no-repeat;
+}

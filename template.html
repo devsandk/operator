@@ -1,88 +1,31 @@
-#!/usr/bin/python
-# -*- coding: utf8 -*-
-
-import sys
-
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
-from PyQt4.QtWebKit import *
-import sys
-import os
-import socket
-import time
-import subprocess
-import ksbfrdrv
-import serial
-import datetime
-import locale
-import array
-import reader
-import xml.etree.ElementTree as ET
-from XMLProtocol import XMLProtocol
-
-
-class Reader():
-    def __init__(self):
-        self.serial = serial.Serial('/dev/ttyUSB0', 9600)
-
-pyDir = os.path.abspath(os.path.dirname(__file__))
-baseUrl = QUrl.fromLocalFile(os.path.join(pyDir, "img/"))
-
-
-class Foo(QObject):
-    #@pyqtSlot(int, result=int)
-    @pyqtSlot(result=str)
-    def ping(self):
-        proto = XMLProtocol.XMLProtocol('10.8.0.14', 7102)
-        data = u'<msg><header><type>answer</type><free_cells>%s</free_cells>' \
-               u'<free_card>%s</free_card></header></msg>' % proto.sendCMD('ping_xml')
-        print data
-        return data
-    @pyqtSlot(result=str)
-    def getcard(self):
-       return reader.getcarnum()
-
-    @pyqtSlot(str, str, str, result=str)
-    def get_cells(self, hall, secbegin, secend):
-        proto = XMLProtocol.XMLProtocol('10.8.0.14', 7102)
-        result = proto.sendCMD('get_cells_xml', hall, secbegin, secend)
-        return result
-
-    @pyqtSlot()
-    def quit(self):
-        QApplication.quit()
-
-    @pyqtSlot(result=str)
-    def setdatetime(self):
-       # locale.setlocale(locale.LC_ALL, 'ru_RU.UTF-8')
-        date = datetime.datetime.now()
-        date = datetime.datetime.strftime(date, u'<msg><date><day>%d</day><month>%m</month>\
-                                                <year>%Y</year></date><time>%H:%M</time></msg>')
-        return date
-
-class Window(QWidget):
-    def __init__(self):
-        super(Window, self).__init__()
-        view = QWebView(self)
-        layout = QVBoxLayout(self)
-        layout.addWidget(view)
-        layout.setMargin(0)
-        self.setStyleSheet("border:10px solid rgb(0, 255, 0);")
-        self.setFixedSize(1024, 768)
-        self.setGeometry(0, 0, 0, 0)
-        self.setWindowFlags(Qt.FramelessWindowHint)
-        self.proto = XMLProtocol.XMLProtocol('10.8.0.14', 7102)
-        self.foo = Foo(self)
-        view.page().mainFrame().addToJavaScriptWindowObject("foo", self.foo)
-
-        html = u"""
-             <html>
+<html>
     <head>
 
         <link rel="stylesheet" type="text/css" href="style/style.css">
 
-      <script src="jquery-2.1.3.min.js"></script>
+          <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+            <script src="js/jquery-1.10.2.js"></script>
+            <script src="js/jquery-ui.js"></script>
+            <link rel="stylesheet" href="/resources/demos/style.css">
             <script>
+
+            $(function() {
+                $( "#dialog" ).dialog({
+                    title:"Внимание",
+                    width:450,
+                    height: 'auto',
+                    modal: true,
+                    autoOpen: false,
+                    buttons: {
+                        "Закрыть": function(){
+                                        $(this).dialog('close');
+                                        $(this).text('');
+                                    }
+                    }
+                });
+            });
+
+
             var content = '';
             var card='';
             var read=1;
@@ -98,31 +41,86 @@ class Window(QWidget):
                         }
                     }
             }
-            function setdatetime(){
-                var data = foo.setdatetime()
-                var month_names=['января', "февраля", "марта", "апреля", "майя", "июня", "июля", "августа", "сентября",
-                                "октября", "ноября", "декабря"]
-                $('#date').text($(data).find('day').text()+' '+month_names[parseInt($(data).find('month').text())]+' '+
-                                $(data).find('year').text());
-                $('#time').text($(data).find('time').text());
+            function info_elem(elem,data){
+                var cell_num = $(data).attr('cell_num')
+                if($(data).attr('adm_cell')=='yes'){
+                    cell_num+='A'
+                }
+                $(elem).append($('<div/>')
+                                 .addClass("cell size"+size+"_"+class_name)
+                                .attr({
+                                        'state':$(data).attr('state'),
+                                        'sec_num':$(data).attr('sec_num'),
+                                        'cell_index':$(data).attr('cell_index'),
+                                        'hall':$(data).attr('hall'),
+                                        'sec_index':$(data).attr('sec_index'),
+                                        'cell_size':$(data).attr('sell_size'),
+                                        'cell_num':$(data).attr('cell_num'),
+                                        'active':$(data).attr('active'),
+                                        'need_pay':$(data).attr('need_pay'),
+                                        'cell_pos':$(data).attr('cell_pos'),
+                                        'card':$(data).attr('card'),
+                                        'act_time':$(data).attr('act_time'),
+                                        'end_time':$(data).attr('end_time'),
+                                        'pay_time':$(data).attr('pay_time'),
+                                        'pay_sum':$(data).attr('pay_sum'),
+                                        'adm_cell':$(data).attr('adn_cell'),
+                                        'isfree':$(data).attr('isfree'),
+                                        'root_access':$(data).attr('root_access'),
+
+                                      })
+                                .text(cell_num)
+                                .click(function(e){
+                                    if($(this).attr('need_pay')=='yes'){
+                                        var text = 'Доплата за: '+parseInt($(this).attr('pay_time'))/60+'ч.<br>'
+                                        text+='Составляет: '+ $(this).attr('pay_sum').substr(0, $(this).attr('pay_sum').length-2)+'руб.<br>'
+                                        text+='Оплачено с: ' + $(this).attr('act_time')
+                                        text+='<br>По: '+$(this).attr('end_time')
+
+
+                                        //alert('Доплата за: '+parseInt($(this).attr('pay_time'))/60+'ч \\r\\nСоставляет:'+ $(this).attr('pay_sum').substr(0, $(this).attr('pay_sum').length-2))
+                                    }
+                                    else if($(this).attr('state')=='free'){
+                                        $('.cell_num').text($(this).attr('cell_num'))
+                                        $('.block').css({"display":"none"});
+                                        $('.chour').text('0')
+                                        $('.kassa').css({"display":"block"})
+
+                                    }
+                                    else {
+                                        var text='Оплачено с: ' + $(this).attr('act_time')
+                                        text+='<br>По: '+$(this).attr('end_time')
+                                        text+='<br>Состояние :'+$(this).attr('state')
+                                    }
+
+
+                                    $('#dialog').html(text)
+                                    $('#dialog').dialog('open')
+                                    $('#dialog').dialog({title:'Ячейка: '+$(this).attr('cell_num')})
+
+
+                                           })
+                                    )
+
             }
-            $(document).ready(function(){
-                $('.numbutton').mousedown(function(){
-                    $(this).css({"background-image":$(this).css('background-image').substring(0,$(this).css('background-image').length-6)+'2.png)'})
-                });
-                $('.numbutton').mouseup(function(){
-                    $(this).css({"background-image":$(this).css('background-image').substring(0,$(this).css('background-image').length-6)+'1.png)'})
-                    /* Вызывать функцию выбора ячеек */
-                    if($(this).attr('cmd')=='get_cell'){
-                        begin = $(this).attr('begin')
-                        end = $(this).attr('end')
-                        data = foo.get_cells('1', begin, end);
-                        $('.block').css({"display":"none"});
-                        $('.viewcells').css({"display":"block"});
-                        $('.chour').text('0')
+            var sale_cell = new Object()
+                sale_cell.card = '';
+                sale_cell.sec_num = '';
+                sale_cell.cell_index = '';
+                sale_cell.btime = '';
+                sale_cell.sum = '';
+                sale_cell.kkmses = '';
+                sale_cell.kkmcheck = '';
+                sale_cell.hole = 1;
+                sale_cell.buy_card = function(){
+                    alert('buy_card: card, btime, sum, kkmses, kkmcheck, sec_num, cell_index')
+                }
+
+            function viewcell(hal, begin, end){
+                data = foo.get_cells(hal, begin, end);
                         free_cells=0;
                         $('.holl').children('.row').remove();
-                        for(i=0; i<=10; i++){
+                        for(i=parseInt(begin); i<=parseInt(begin)+10; i++){
                             $('.holl').append('<div class="row" id="'+i+'" sec_index="'+i+'"></div>')
                         }
                         $(data).find('item').each(function(){
@@ -138,16 +136,100 @@ class Window(QWidget):
                                 else {
                                     class_name=$(this).attr('state')
                                 }
-                                $('#'+$(this).attr('sec_index')).append("<div class='cell size"+size+"_"+class_name+"'>"+
-                                $(this).attr('cell_num')+"</div>")
+                                info_elem($('#'+$(this).attr('sec_index')),$(this))
                             }
                         })
                         $('.free_cells').text(free_cells)
 
 
+
+
+            }
+
+
+
+
+            function setdatetime(){
+                var data = foo.setdatetime()
+                var month_names=['января', "февраля", "марта", "апреля", "майя", "июня", "июля", "августа", "сентября",
+                                "октября", "ноября", "декабря"]
+                $('#date').text($(data).find('day').text()+' '+month_names[parseInt($(data).find('month').text())]+' '+
+                                $(data).find('year').text());
+                $('#time').text($(data).find('time').text());
+            }
+            $(document).ready(function(){
+
+
+
+
+
+
+                sale_cell.buy_card()
+                sale_cell.card='99999'
+                $('.numbutton').mousedown(function(){
+                    $(this).css({"background-image":$(this).css('background-image').substring(0,$(this).css('background-image').length-6)+'2.png)'})
+                });
+                $('.hol').mouseup(function(){
+                    if($(this).attr('cmd') == 'hol_next'){
+                        sale_cell.hole=parseInt(sale_cell.hole+1).toString()
+                        begin = parseInt(sale_cell.hole)*10+1
+                        end= begin+9
+                        viewcell('1', begin, end)
+
+                    }
+                    else if($(this).attr('cmd') == 'hol_back'){
+                        sale_cell.hole=parseInt(sale_cell.hole-1).toString()
+                        end = parseInt(sale_cell.hole)*10
+                        begin= end-9
+                        data = foo.get_cells('1', begin, end);
+                        viewcell('1', begin, end)
+
+                    }
+                        $('.free_cells').text(free_cells)
+                    sale_cell.hole = parseInt(sale_cell.hole)
+
+                })
+                $('.numbutton').mouseup(function(){
+                    $(this).css({"background-image":$(this).css('background-image').substring(0,$(this).css('background-image').length-6)+'1.png)'})
+                    /* Вызывать функцию выбора ячеек */
+                    if($(this).attr('cmd')=='get_cell'){
+                        sale_cell.hole = 1;
+                        begin = $(this).attr('begin')
+                        end = $(this).attr('end')
+                        data = foo.get_cells('1', begin, end);
+                        $('.block').css({"display":"none"});
+                        $('.viewcells').css({"display":"block"});
+                        $('.chour').text('0')
+                        free_cells=0;
+                        $('.holl').children('.row').remove();
+                        for(i=1; i<=10; i++){
+                            $('.holl').append('<div class="row" id="'+i+'" sec_index="'+i+'"></div>')
+                        }
+                        $(data).find('item').each(function(){
+                            if ($(this).attr('state')=='free'){
+                                free_cells+=1
+                            }
+                            if ($(this).attr('cell_num')!='99999'){
+                                class_name='need_pay'
+                                size = $(this).attr('cell_size')
+                                if($(this).attr('need_pay')=='yes'){
+                                    class_name='need_pay'
+                                }
+                                else {
+                                    class_name=$(this).attr('state')
+                                }
+                                info_elem($('#'+$(this).attr('sec_index')),$(this))
+                            }
+
+                        })
+                        $('.free_cells').text(free_cells)
+
+
+
                     }
                     else if($(this).attr('cmd')=='clear'){
                         $('.chour').text('0')
+                        $('.cell_num').text('')
                     }
                     else if($('.chour').text()=='0'){
                         $('.chour').text($(this).text())
@@ -198,6 +280,39 @@ class Window(QWidget):
                         $('.menu').css({"display":"block"});
                         $("#hcontent").children('h2').remove()
                     }
+                    else if (cmd=='map'){
+
+                        sale_cell.hole = 1;
+                        begin = 1
+                        end = 10
+                        data = foo.get_cells('1', begin, end);
+                        $('.block').css({"display":"none"});
+                        $('.viewcells').css({"display":"block"});
+                        $('.chour').text('0')
+                        free_cells=0;
+                        $('.holl').children('.row').remove();
+                        for(i=1; i<=10; i++){
+                            $('.holl').append('<div class="row" id="'+i+'" sec_index="'+i+'"></div>')
+                        }
+                        $(data).find('item').each(function(){
+                            if ($(this).attr('state')=='free'){
+                                free_cells+=1
+                            }
+                            if ($(this).attr('cell_num')!='99999'){
+                                class_name='need_pay'
+                                size = $(this).attr('cell_size')
+                                if($(this).attr('need_pay')=='yes'){
+                                    class_name='need_pay'
+                                }
+                                else {
+                                    class_name=$(this).attr('state')
+                                }
+                                $('#'+$(this).attr('sec_index')).append("<div class='cell size"+size+"_"+class_name+"'>"+
+                                $(this).attr('cell_num')+"</div>")
+                            }
+                        })
+
+                    }
                     else if (cmd=='oper'){
                         var data = foo.ping();
                         $('.menu').css({"display":"none"})
@@ -225,7 +340,7 @@ class Window(QWidget):
 
 
                 setInterval('setdatetime();', 1000);
-                setInterval('jgetcard();',3000);
+                setInterval('jgetcard();',5000);
                 $('#settings').click(function (){
                     if ($("#scontent").css('display')=='none') {
                         $('#scontent').slideDown('slow')
@@ -243,6 +358,7 @@ class Window(QWidget):
     </head>
 
     <body style="margin:0px;padding:0px;">
+        <div id="dialog"></div>
         <div id='scontent'>
             <div class='sheader'>
             </div>
@@ -370,20 +486,24 @@ class Window(QWidget):
                         <img src='bt_cancel1.png' cmd='back_menu_oper' style="border-radius:51px;">
                     </div>
             </div>
-            <div class="block viewcells" style='display:none; min-height:600px;'>
+            <div class="block viewcells" style='display:none; min-height:600px;background:white;'>
                 <div class="view_head" style='background-color:white; width:100%;float:left;'>
                     <div class='text' style="float:left; width:50%; padding-left:20px; text-align:left;">
                         <p>Свободных ячеек - <span class='free_cells'></span></p>
+                    </div>
+                    <div class='nav'>
+                        <div class='bt_back hol' cmd='hol_back'>Назад</div>
+                        <div class='bt_next hol' cmd='hol_next'>Вперед</div>
                     </div>
                 </div>
                 <div class='holl'>
                     <!--<div class='row' sec_index='1'>
                         <div class='cell size2_free'>1</div>
-                        <div class='cell size2_free'>2</div>
+                        <div class='ceelseelseelseelse    ll size2_free'>2</div>
                         <div class='cell size2_free'>3</div>
                     </div>-->
                 </div>
-                <div class='button' style='margin:auto; width:50%; height:150px;float:left;'>
+                <div class='button' style='margin:auto; width:100%; height:150px;float:left; margin-top:30px;'>
                     <img src='bt_backw1.png' cmd='back_menu_kassa'>
                 </div>
             </div>
@@ -400,14 +520,3 @@ class Window(QWidget):
         </div>
     </body>
   </html>
-            """
-        view.setHtml(html, baseUrl)
-
-def main():
-    app = QApplication(sys.argv)
-    window = Window()
-    window.show()
-    app.exec_()
-
-if __name__ == "__main__":
-    main()
