@@ -3,7 +3,9 @@ import serial
 import array
 import time 
 
+
 class Reader:
+
     def __init__(self, port='/dev/ttyUSB0'):
         self.port = port
         self.data = None
@@ -34,7 +36,7 @@ class Reader:
     def get_card_num(self):
         a = ''
         data = ''
-        a = self.getcard()
+        a = self.get_card()
         if len(a)<19:
             return u'None_data'
         for i in range(len(a[9:-3])):
@@ -44,7 +46,8 @@ class Reader:
             data += ch
         return data
 if __name__=="__main__":
-    print getcarnum()
+    cardread = Reader()
+    print cardread.get_card_num()
 
 
 

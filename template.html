@@ -12,7 +12,7 @@
             $(function() {
                 $( "#dialog" ).dialog({
                     title:"Внимание",
-                    width:450,
+                    width:850,
                     height: 'auto',
                     modal: true,
                     autoOpen: false,
@@ -78,7 +78,6 @@
                                         text+='<br>По: '+$(this).attr('end_time')
 
 
-                                        //alert('Доплата за: '+parseInt($(this).attr('pay_time'))/60+'ч \\r\\nСоставляет:'+ $(this).attr('pay_sum').substr(0, $(this).attr('pay_sum').length-2))
                                     }
                                     else if($(this).attr('state')=='free'){
                                         $('.cell_num').text($(this).attr('cell_num'))
@@ -89,15 +88,46 @@
                                     }
                                     else {
                                         var text='Оплачено с: ' + $(this).attr('act_time')
+                                        var act_time = $(this).attr('act_time').replace(/\.|-|:/g,',').replace(/\,0/g,',').split(',')
+                                        var end_time = $(this).attr('end_time').replace(/\.|-|:/g,',').replace(/\,0/g,',').split(',')
+                                        var end = new Date()
+                                        end.setFullYear(end_time[0])
+                                        end.setMonth(end_time[1]-1)
+                                        end.setDate(end_time[2])
+                                        end.setHours(end_time[3])
+                                        end.setMinutes(end_time[4])
+                                        end.setSeconds(end_time[5])
+
+                                        //var end_time = new Date($(this).attr('end_time'))
+                                        var now = new Date()
+                                        var diff = end-Date.now()
                                         text+='<br>По: '+$(this).attr('end_time')
-                                        text+='<br>Состояние :'+$(this).attr('state')
+                                        timer = diff/1000/60/60+''.substr(0,3)
+                                        hour = timer.split('.')[0]
+                                        minut = 60*parseFloat('0.'+timer.split('.')[1])+''
+                                        minut = minut.substr(0,2).replace('.','')
+                                        text+='<br>Осталось: '+hour+'ч.'+minut+'мин.'
+                                        var admin = 'разрешен'
+                                        if($(this).attr('root_access')=='no'){
+                                            admin = 'запрещен'
+                                            $('#dialog').dialog({
+                                                buttons: {
+                                                    "Разрешить админ": function(){
+                                                        $('#dialog').dialog('close')
+                                                    },
+                                                    "Закрыть": function(){
+                                                        $('#dialog').dialog('close')
+                                                    }
+                                                }
+                                            })
+                                        }
+                                        text+='<br>Админ: '+admin
                                     }
-
-
-                                    $('#dialog').html(text)
-                                    $('#dialog').dialog('open')
-                                    $('#dialog').dialog({title:'Ячейка: '+$(this).attr('cell_num')})
-
+                                    if($(this).attr('state')!='free'){
+                                        $('#dialog').html(text)
+                                        $('#dialog').dialog('open')
+                                        $('#dialog').dialog({title:'Ячейка: '+$(this).attr('cell_num')})
+                                    }
 
                                            })
                                     )
@@ -112,6 +142,7 @@
                 sale_cell.kkmses = '';
                 sale_cell.kkmcheck = '';
                 sale_cell.hole = 1;
+                sale_cell
                 sale_cell.buy_card = function(){
                     alert('buy_card: card, btime, sum, kkmses, kkmcheck, sec_num, cell_index')
                 }
