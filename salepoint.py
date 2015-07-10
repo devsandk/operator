@@ -19,6 +19,7 @@ import array
 from reader import Reader
 import xml.etree.ElementTree as ET
 from XMLProtocol import XMLProtocol
+from lxml import etree
 
 
 
@@ -26,12 +27,39 @@ pyDir = os.path.abspath(os.path.dirname(__file__))
 baseUrl = QUrl.fromLocalFile(os.path.join(pyDir, "img/"))
 proto = XMLProtocol.XMLProtocol('10.8.0.14', 7102)
 
+class Config:
+    def __init__(self, config='config/config.xml'):
+        self.xml = etree.parse(config)
+        self.multiserver = self.xml.xpath('/config/servers')[0].attrib['multiserver']
+        self.multipay = self.xml.xpath('/config/servers')[0].attrib['multipay']
+        count = int(self.xml.xpath('/config/servers')[0].attrib['count'])
+        self.node = []
+        for i in range(count):
+            self.node.append(XMLProtocol.XMLProtocol(
+                self.xml.xpath('/config/servers/node')[i].attrib['net_address'],
+                int(self.xml.xpath('/config/servers/node')[i].attrib['port'])
+            ))
+
+    def getserver(self, id):
+        return self.node[id]
+
+    def getbeetrow(self, id):
+        min_row, max_row = self.xml.xpath('/config/servers/node')[id].attrib['begin_row'], \
+        self.xml.xpath('/config/servers/node')[id].attrib['end_row']
+        return (int(min_row), int(max_row))
+
+
+
+
+proto = Config()
+print proto.getserver(0).sendCMD('ping_xml')
+
 class Foo(QObject):
     #@pyqtSlot(int, result=int)
-    @pyqtSlot(result=str)
-    def ping(self):
+    @pyqtSlot(int, result=str)
+    def ping(self, serverid):
         data = u'<msg><header><type>answer</type><free_cells>%s</free_cells>' \
-               u'<free_card>%s</free_card></header></msg>' % proto.sendCMD('ping_xml')
+               u'<free_card>%s</free_card></header></msg>' % proto.getserver(serverid).sendCMD('ping_xml')
         print data
         return data
     @pyqtSlot(result=str)
@@ -39,9 +67,20 @@ class Foo(QObject):
         reader = Reader()
         return '%s'%reader.get_card_num()
 
-    @pyqtSlot(str, str, str, result=str)
-    def get_cells(self, hall, secbegin, secend):
-        result = proto.sendCMD('get_cells_xml', hall, secbegin, secend)
+    @pyqtSlot(str, str, str,int, result=str)
+    def get_cells(self, hall, secbegin, secend, serverid):
+        smin, smax = proto.getbeetrow(serverid)
+        begin = secbegin
+        end = secend
+        if int(begin) < smin:
+            begin = str(smin)
+            end = str(smin+9)
+            print begin, end
+        if int(end) > smax:
+            end = str(smax)
+            begin = str(smax-9)
+            print begin, end
+        result = proto.getserver(serverid).sendCMD('get_cells_xml', hall, begin, end)
         print result
         return result
 

@@ -1,0 +1,7 @@
+<?xml version="1.1" encoding="UTF-8" ?>
+<config>
+    <servers multiserver="no" multipay="no" count="2">
+        <node net_address="10.8.0.14" port="7102" begin_row="1" end_row="35"/>
+        <node net_address="10.8.0.14" port="7102" begin_row="36" end_row="71"/>
+    </servers>
+</config>

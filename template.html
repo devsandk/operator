@@ -148,11 +148,17 @@
                 }
 
             function viewcell(hal, begin, end){
-                data = foo.get_cells(hal, begin, end);
+                data = foo.get_cells(hal, begin, end, 0);
                         free_cells=0;
                         $('.holl').children('.row').remove();
+                        if (begin < 0){
+                            begin =1
+                        }
+                        if (end > 35){
+                            end=35
+                        }
                         for(i=parseInt(begin); i<=parseInt(begin)+10; i++){
-                            $('.holl').append('<div class="row" id="'+i+'" sec_index="'+i+'"></div>')
+                            $('.holl').append('<div class="row '+i+'" sec_index="'+i+'"></div>')
                         }
                         $(data).find('item').each(function(){
                             if ($(this).attr('state')=='free'){
@@ -167,7 +173,7 @@
                                 else {
                                     class_name=$(this).attr('state')
                                 }
-                                info_elem($('#'+$(this).attr('sec_index')),$(this))
+                                info_elem($('.'+$(this).attr('sec_index')),$(this))
                             }
                         })
                         $('.free_cells').text(free_cells)
@@ -210,9 +216,12 @@
                     }
                     else if($(this).attr('cmd') == 'hol_back'){
                         sale_cell.hole=parseInt(sale_cell.hole-1).toString()
+                        if(parseInt(sale_cell.hole)<0){
+                            sale_cell.hole=0;
+                        }
                         end = parseInt(sale_cell.hole)*10
                         begin= end-9
-                        data = foo.get_cells('1', begin, end);
+                        data = foo.get_cells('1', begin, end, 0);
                         viewcell('1', begin, end)
 
                     }
@@ -227,14 +236,14 @@
                         sale_cell.hole = 1;
                         begin = $(this).attr('begin')
                         end = $(this).attr('end')
-                        data = foo.get_cells('1', begin, end);
+                        data = foo.get_cells('1', begin, end, 0);
                         $('.block').css({"display":"none"});
                         $('.viewcells').css({"display":"block"});
                         $('.chour').text('0')
                         free_cells=0;
                         $('.holl').children('.row').remove();
                         for(i=1; i<=10; i++){
-                            $('.holl').append('<div class="row" id="'+i+'" sec_index="'+i+'"></div>')
+                            $('.holl').append('<div class="row '+i+'" sec_index="'+i+'"></div>')
                         }
                         $(data).find('item').each(function(){
                             if ($(this).attr('state')=='free'){
@@ -249,7 +258,7 @@
                                 else {
                                     class_name=$(this).attr('state')
                                 }
-                                info_elem($('#'+$(this).attr('sec_index')),$(this))
+                                info_elem($('.'+$(this).attr('sec_index')),$(this))
                             }
 
                         })
@@ -323,7 +332,7 @@
                         free_cells=0;
                         $('.holl').children('.row').remove();
                         for(i=1; i<=10; i++){
-                            $('.holl').append('<div class="row" id="'+i+'" sec_index="'+i+'"></div>')
+                            $('.holl').append('<div class="row '+i+'" sec_index="'+i+'"></div>')
                         }
                         $(data).find('item').each(function(){
                             if ($(this).attr('state')=='free'){
@@ -338,14 +347,14 @@
                                 else {
                                     class_name=$(this).attr('state')
                                 }
-                                $('#'+$(this).attr('sec_index')).append("<div class='cell size"+size+"_"+class_name+"'>"+
+                                $('.'+$(this).attr('sec_index')).append("<div class='cell size"+size+"_"+class_name+"'>"+
                                 $(this).attr('cell_num')+"</div>")
                             }
                         })
 
                     }
                     else if (cmd=='oper'){
-                        var data = foo.ping();
+                        var data = foo.ping(0);
                         $('.menu').css({"display":"none"})
                         $('.oper').css({"display":"block"})
 
