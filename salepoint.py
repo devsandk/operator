@@ -52,7 +52,7 @@ class Config:
 
 
 proto = Config()
-print proto.getserver(0).sendCMD('ping_xml')
+#print proto.getserver(0).sendCMD('ping_xml')
 
 class Foo(QObject):
     #@pyqtSlot(int, result=int)
@@ -110,6 +110,7 @@ class Window(QWidget):
         self.proto = XMLProtocol.XMLProtocol('10.8.0.14', 7102)
         self.foo = Foo(self)
         view.page().mainFrame().addToJavaScriptWindowObject("foo", self.foo)
+        view.settings().setAttribute(QWebSettings.DeveloperExtrasEnabled, True)
         html = open('template.html', 'r')
         html = html.read().decode('utf-8')
 
