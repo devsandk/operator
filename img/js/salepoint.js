@@ -20,19 +20,25 @@
 
             }
             function removeBlock(callback){
-
-                $('#content').children('.block').each(function(){
-                    var cl = $(this).attr('class').split(' ')[1]
-                    if(cl !== 'kassa' & cl !== 'viewcells' & cl !== 'card'){
-                        alert(cl)
-                        $(this).remove()
+                    sale_cell.card=foo.getcard().toUpperCase()
+                    if(sale_cell.card!='' & sale_cell.card!="NONE_DATA" & sale_cell.card!==undefined){
+                        $('#content').children('.block').each(function(){
+                            var cl = $(this).attr('class').split(' ')[1]
+                            if(cl !== 'kassa' & cl !== 'viewcells' & cl !== 'card'){
+                                $(this).remove()
+                            }
+                            else{
+                                $(this).css('display', 'none')
+                            }
+                        })
+                        callback();
                     }
                     else{
-                        $(this).css('display', 'none')
+                        sale_cell.timerId=setTimeout(removeBlock(callback),100)
                     }
-                })
-                callback();
+
             }
+
             function showMap(){
                 sale_cell.hole = 1;
                         begin = 1
@@ -90,10 +96,11 @@
                                                         $('#dialog').dialog({
                                                             buttons: {
                                                                 "Войти": function(){
-                                                                    $('#dialog').dialog('close')
-                                                                    removeBlock(showMenuOper)
+                                                                    sale_cell.timerId=setTimeout(removeBlock(showMenuOper),100)
+                                                                    //$('#dialog').dialog('close')
                                                                 },
                                                                 "Close":function(){
+                                                                    clearInterval(sale_cell.timerId)
                                                                     $('#dialog').dialog('close')
                                                                 }
                                                             }
@@ -147,8 +154,8 @@
                 cmd.cmd = $(elem).attr('cmd')
                 cmd.parent_class = $(elem).parent().parent().attr('class').split(' ')[1]
                 cmd.html = $(elem).parent().parent().html()
-                alert(cmd.html)*/
-                $('#content').children('.block').remove();
+                alert(cmd.html)
+                $('#content').children('.block').remove();*/
                 $('#content').append($('<div/>')
                                         .addClass('block')
                                         .addClass('oper')
@@ -251,16 +258,21 @@
             var content = '';
             var card='';
             var read=1;
+
+
+
             function jgetcard(){
-                    if (window.read==1){
-                        var data = foo.getcard().toUpperCase();
-                        data=data.replace(/^0+/, '')
+                    if (sale_cell.card==''){
+                        sale_cell.card = foo.getcard().toUpperCase();
                         $("#scontent").children('h2').remove();
-                        $('#scontent').append("<h2>"+data+"</h2>")
-                        window.card=data
-                        if(data!="NONE_DATA"){
-                            window.read=0;
+                        $('#scontent').append("<h2>"+sale_cell.card+"</h2>")
+                        if(sale_cell.card!="NONE_DATA"){
+                            sale_cell.card=''
                         }
+                    }
+                    else{
+                        clearInterval(sale_cell.timerId);
+                        return sale_cell.card
                     }
             }
             function info_elem(elem,data){
@@ -356,6 +368,7 @@
 
             }
             var sale_cell = new Object()
+                sale_cell.max_call=300;
                 sale_cell.card = '';
                 sale_cell.sec_num = '';
                 sale_cell.cell_index = '';
@@ -364,7 +377,7 @@
                 sale_cell.kkmses = '';
                 sale_cell.kkmcheck = '';
                 sale_cell.hole = 1;
-                sale_cell
+                sale_cell.timerId=null;
                 sale_cell.buy_card = function(){
                     alert('buy_card: card, btime, sum, kkmses, kkmcheck, sec_num, cell_index')
                 }
@@ -432,12 +445,13 @@
 
 
 
+
                 onclickmenu();
                 showMenu();
 
 
                 sale_cell.buy_card()
-                sale_cell.card='99999'
+                //sale_cell.card='99999'
                 $('.numbutton').mousedown(function(){
                     $(this).css({"background-image":$(this).css('background-image').substring(0,$(this).css('background-image').length-6)+'2.png)'})
                 });
@@ -615,7 +629,7 @@
 
 
                 setInterval('setdatetime();', 1000);
-                setInterval('jgetcard();',5000);
+                //setInterval('jgetcard();',5000);
                 $('#settings').click(function (){
                     if ($("#scontent").css('display')=='none') {
                         $('#scontent').slideDown('slow')

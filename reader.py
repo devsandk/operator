@@ -13,11 +13,14 @@ class Reader:
 
     def get_card(self):
         self.conn.write(array.array('B', [0xfd, 0x00, 0x01, 0x0e, 0x6a, 0x36, 0xfe]).tostring())
-        self.conn.read(10)
+        self.conn.read()
         self.conn.write(array.array('B', [0xfd, 0x00, 0x02, 0x07, 0x00, 0x00, 0x02, 0x34, 0x95, 0xfe]).tostring())
-        self.conn.read(8)
+        self.conn.read()
         self.conn.write(array.array('B', [0xfd,0x00,0x03,0x43,0x3b,0x9c,0xfe]).tostring())
         self.data = self.conn.read(19)
+        print len(self.data)
+        for a in range(len(self.data)):
+            print hex(ord(self.data[a]))
        # self.conn.read(8)
         self.conn.write(array.array('B', [0xfd,0x00,0x04,0x07,0x02,0x01,0x00, 0xde, 0x21, 0xfe]).tostring())
        # self.conn.read(8)
@@ -47,8 +50,10 @@ class Reader:
             data += ch
         return data
 if __name__=="__main__":
-    cardread = Reader()
-    print cardread.get_card_num()
+    for i in range(1):
+        cardread = Reader()
+        print cardread.get_card_num()
+        time.sleep(1)
 
 
 

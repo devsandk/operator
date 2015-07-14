@@ -16,7 +16,7 @@ import serial
 import datetime
 import locale
 import array
-from reader import Reader
+from cardreedder import Reader
 import xml.etree.ElementTree as ET
 from XMLProtocol import XMLProtocol
 from lxml import etree
