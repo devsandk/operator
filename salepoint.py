@@ -64,7 +64,7 @@ class Foo(QObject):
         return data
     @pyqtSlot(result=str)
     def getcard(self):
-        reader = Reader()
+        reader = Reader('/dev/ttyUSB1')
         return '%s'%reader.get_card_num()
 
     @pyqtSlot(str, str, str,int, result=str)

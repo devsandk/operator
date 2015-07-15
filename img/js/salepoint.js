@@ -19,9 +19,14 @@
                     $(elem).attr('src', $(elem).attr('src').substring(-1,$(elem).attr('src').length-5)+'2.png')
 
             }
-            function removeBlock(callback){
+            function removeBlock(callback, flag){
+                if(flag === undefined){
+                    flag=true
+                }
+                if(flag==true){
                     sale_cell.card=foo.getcard().toUpperCase()
                     if(sale_cell.card!='' & sale_cell.card!="NONE_DATA" & sale_cell.card!==undefined){
+                        $('#dialog').dialog('close')
                         $('#content').children('.block').each(function(){
                             var cl = $(this).attr('class').split(' ')[1]
                             if(cl !== 'kassa' & cl !== 'viewcells' & cl !== 'card'){
@@ -34,8 +39,22 @@
                         callback();
                     }
                     else{
-                        sale_cell.timerId=setTimeout(removeBlock(callback),100)
+                        sale_cell.timerId=setTimeout(removeBlock(callback),1700)
                     }
+                }
+                else{
+                    $('#content').children('.block').each(function(){
+                            var cl = $(this).attr('class').split(' ')[1]
+                            if(cl !== 'kassa' & cl !== 'viewcells' & cl !== 'card'){
+                                $(this).remove()
+                            }
+                            else{
+                                $(this).css('display', 'none')
+                            }
+                        })
+                        callback();
+
+                }
 
             }
 
@@ -96,7 +115,7 @@
                                                         $('#dialog').dialog({
                                                             buttons: {
                                                                 "Войти": function(){
-                                                                    sale_cell.timerId=setTimeout(removeBlock(showMenuOper),100)
+                                                                    sale_cell.timerId=setTimeout(removeBlock(showMenuOper),1500)
                                                                     //$('#dialog').dialog('close')
                                                                 },
                                                                 "Close":function(){
@@ -248,7 +267,7 @@
                                                 })
                                                .mouseup(function(){
                                                     $(this).remove()
-                                                    removeBlock(showMenu)
+                                                    removeBlock(showMenu, false)
                                                })
                                             ))
                                     )
@@ -315,6 +334,8 @@
                                     }
                                     else if($(this).attr('state')=='free'){
                                         $('.cell_num').text($(this).attr('cell_num'))
+                                        sale_cell.sec_num=$(this).attr('cell_num')
+                                        sale_cell.cell_index=$(this).attr('cell_index')
                                         $('.block').css({"display":"none"});
                                         $('.chour').text('0')
                                         $('.kassa').css({"display":"block"})
@@ -558,7 +579,7 @@
                     else if (cmd == "back_menu_oper"){
                         $('.block').css({"display":"none"});
                         $('.chour').text('0')
-                        $('.oper').css({"display":"block"})
+                        showMenuOper()
                     }
                     else if (cmd == "back_menu_kassa"){
                         $('.block').css({"display":"none"});

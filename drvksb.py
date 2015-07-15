@@ -12,9 +12,10 @@ hour=datetime.datetime.now().hour
 minut=datetime.datetime.now().minute
 #year=datetime.datetime.now().year
 
-ser = serial.Serial('/dev/ttyS0',115200,writeTimeout=0.5, timeout=0.5,stopbits=serial.STOPBITS_ONE, parity=serial.PARITY_NONE)
-kassa = bcd.Kasbi(ser, 0x00,0)
-#ERROR_FR[hex(ord(kassa.ZReport()[2]))]
+ser = serial.Serial('/dev/ttyUSB0',115200,writeTimeout=0.5, timeout=0.5,stopbits=serial.STOPBITS_ONE, parity=serial.PARITY_NONE)
+kassa = bcd.Kasbi(ser, 0x00)
+print ERROR_FR[hex(ord(kassa.ZReport()[2]))]
 time.sleep(2)
-ERROR_FR[hex(ord(kassa.CurenTime(hour,minut)[2]))]
+print ERROR_FR[hex(ord(kassa.CurenTime(hour,minut)[2]))]
+kassa.conn.close()
 

@@ -38,8 +38,9 @@ class Kasbi:
         self.password = bcd(password)
         self.frid = frid
         self.ks_id = CalcKs_id(frid)
-        self.conn.open()
-    
+        if self.conn.isOpen() is False:
+            self.conn.open()
+
     def addComand(self, code, long_data, data=[], c_password=0):
         #if len(data)==0:
         #    for i in range(long_data):
@@ -161,13 +162,15 @@ if __name__=="__main__":
     ser = serial.Serial('/dev/ttyUSB0',115200, timeout=0.5)
     kassa = Kasbi(ser, 0x00,0)
     #kassa.CurenTime(17,02)
-    #kassa.Print_string(0, u'You Мыло ')
-    #kassa.Print_service_doc()
+    kassa.Print_string(0, u'You Мыло ')
+    kassa.Print_string(1, u'Фискальный')
+    kassa.Print_service_doc()
     #kassa.ZReport()
     #kassa.XReport()
     print ERROR_FR[hex(ord(kassa.openChek()[2]))]
-    print ERROR_FR[hex(ord(kassa.Sale(9, 1)[2]))]
+    #print ERROR_FR[hex(ord(kassa.Sale(150, 1)[2]))]
+    print ERROR_FR[hex(ord(kassa.Sale(150, 1)[2]))]
     #kassa.openCashDrawer()
-    print ERROR_FR[hex(ord(kassa.closeChek(99)[2]))]
+    print ERROR_FR[hex(ord(kassa.closeChek(150)[2]))]
     kassa.conn.close()
        
